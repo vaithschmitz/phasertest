@@ -40,10 +40,12 @@ function create ()
     platforms.create(750, 220, 'ground');  
     
     player = this.physics.add.sprite(100, 450, 'dude');
+    this.physics.add.collider(player, platforms);
 
-    player.setBounce(0.2);
+    player.setBounce(1);
+    // edge of window
     player.setCollideWorldBounds(true);
-
+    player.body.setGravityY(-3)
     this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
@@ -68,8 +70,26 @@ function create ()
 
 }
 
-function update ()
-{
+function update (){
+    const cursors = this.input.keyboard.createCursorKeys();
+    if (cursors.left.isDown){
+        player.setVelocityX(-160);
+        player.anims.play('left', true);
+    }
+    else if (cursors.right.isDown){
+        player.setVelocityX(160);
+
+        player.anims.play('right', true);
+    }
+    else{
+        player.setVelocityX(0);
+        player.anims.play('turn');
+    }
+
+    if (cursors.up.isDown && player.body.touching.down)
+    {
+        player.setVelocityY(-330);
+    }
 }
 
 
