@@ -5,7 +5,7 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 300 },
+            gravity: { y: 1000 },
             debug: false
         }
     },
@@ -42,10 +42,10 @@ function create ()
     player = this.physics.add.sprite(100, 450, 'dude');
     this.physics.add.collider(player, platforms);
 
-    player.setBounce(1);
+    player.setBounce(0.2);
     // edge of window
     player.setCollideWorldBounds(true);
-    player.body.setGravityY(-3)
+    player.body.setGravityY(100)
     this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
@@ -73,11 +73,11 @@ function create ()
 function update (){
     const cursors = this.input.keyboard.createCursorKeys();
     if (cursors.left.isDown){
-        player.setVelocityX(-160);
+        player.setVelocityX(-250);
         player.anims.play('left', true);
     }
     else if (cursors.right.isDown){
-        player.setVelocityX(160);
+        player.setVelocityX(250);
 
         player.anims.play('right', true);
     }
