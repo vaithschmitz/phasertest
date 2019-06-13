@@ -46,7 +46,7 @@ function create ()
 
     stars = this.physics.add.group({
         key: 'star',
-        repeat: 12,
+        repeat: 11,
         setXY: { x: 12, y: 0, stepX: 70 }
     });
 
@@ -157,6 +157,6 @@ function hitBomb (player, bomb)
     player.setTint(0xff0000);
 
     player.anims.play('turn');
-
+    game.stage.backgroundColor = 'red'
     gameOver = true;
 }
