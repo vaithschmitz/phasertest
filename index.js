@@ -48,8 +48,12 @@ function create ()
         setXY: { x: 12, y: 0, stepX: 30 }
     });
 
+    // adding colliders
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
+
+    // check if player overlaps star
+    this.physics.add.overlap(player, stars, collectStar, null, this);
 
     player.setBounce(0.2);
     // edge of window
@@ -75,11 +79,11 @@ function create ()
         repeat: -1
     });
  
-    stars.children.iterate(function (child) {
-    
-        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+    stars.children.iterate(function (child) {   
+        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.6));
     
     });
+
 
 
 }
@@ -108,3 +112,7 @@ function update (){
 }
 
 
+
+function collectStar(player, star){
+    star.disableBody(true, true);
+}
