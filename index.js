@@ -40,7 +40,16 @@ function create ()
     platforms.create(750, 220, 'ground');  
     
     player = this.physics.add.sprite(100, 450, 'dude');
+
+
+    let stars = this.physics.add.group({
+        key: 'star',
+        repeat: 50,
+        setXY: { x: 12, y: 0, stepX: 30 }
+    });
+
     this.physics.add.collider(player, platforms);
+    this.physics.add.collider(stars, platforms);
 
     player.setBounce(0.2);
     // edge of window
@@ -65,7 +74,12 @@ function create ()
         frameRate: 10,
         repeat: -1
     });
-
+ 
+    stars.children.iterate(function (child) {
+    
+        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+    
+    });
 
 
 }
@@ -86,9 +100,10 @@ function update (){
         player.anims.play('turn');
     }
 
+    // jump
     if (cursors.up.isDown && player.body.touching.down)
     {
-        player.setVelocityY(-330);
+        player.setVelocityY(-750);
     }
 }
 
